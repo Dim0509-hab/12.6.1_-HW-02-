@@ -9,6 +9,10 @@ $example_persons_array = [
         'job' => 'frontend-developer',
     ],
     [
+        'fullname' => 'Шакиров Димитрий Раисович',
+        'job' => 'frontend-developer',
+    ],
+    [
         'fullname' => 'Пащенко Владимир Александрович',
         'job' => 'analyst',
     ],
@@ -19,6 +23,10 @@ $example_persons_array = [
     [
         'fullname' => 'Славин Семён Сергеевич',
         'job' => 'analyst',
+    ],
+    [
+        'fullname' => 'Энзель Аида Маратовна',
+        'job' => 'frontend-developer',
     ],
     [
         'fullname' => 'Цой Владимир Антонович',
@@ -53,11 +61,13 @@ function getFullnameFromParts($example_persons_array) {
     foreach ($example_persons_array as $person) {
         $fullname1[] = $person['fullname'];
     }
-    //print_r($fullname1);
+    /// Вывод в виде строк, содержащих сразу и фамилию, и имя, и отчество
+    //print_r($fullname1);    
     return $fullname1;
 }
 
-//$result1 = getFullnameFromParts($example_persons_array);
+$result1 = getFullnameFromParts($example_persons_array);
+
 
 ////////////////////////////////////////////////////////
 function getPartsFromFullname($example_persons_array) {
@@ -72,14 +82,14 @@ function getPartsFromFullname($example_persons_array) {
         $patronymic = $parts[2];
 
         // Добавляем элементы в новый массив
-        $fullname[] = [$name, $surname, $patronymic];
-        
+        $fullname[] = [$name, $surname, $patronymic];        
     }
+    /// Вывод в виде строк, содержащих по сточно имя, фамилию и отчество
      //print_r($fullname);
      
     return $fullname;
 }
-//$result2 = getFullnameFromParts($example_persons_array);
+$result2 = getFullnameFromParts($example_persons_array);
 /////////////////////////////////////////////////////////////////
 function getShortName($parts) {
     $name = $parts[0];
@@ -188,19 +198,18 @@ function getGenderDescription($fullnames) {
 
 $genderDescription = getGenderDescription($fullnames);
 
-/*
+
 // Выводим определение возрастно-полового состава
 echo "Гендерный состав аудитории:\n";
 echo "---------------------------\n";
 echo "Мужчины - " . $genderDescription['Мужчины'] . "\n";
 echo "Женщины - " . $genderDescription['Женщины'] . "\n";
 echo "Не удалось определить - " . $genderDescription['Не удалось определить'] . "\n";
-*/
+
 ////////////////////////////////////////////////////
 
 function getPerfectPartner($fullnames) {
-    // Функция для определения пола по ФИО
-    
+    // Функция для определения пола по ФИО    
     function getGenderFromName1($fullname) {
         $name = $fullname[0];
         $surname = $fullname[1];
@@ -249,18 +258,13 @@ function getPerfectPartner($fullnames) {
         $randomIndex2 = $randomIndex1;
         while ($randomIndex2 === $randomIndex1) {
             $randomIndex2 = array_rand($fullnames);
-        }
-        //print_r(($randomIndex1). PHP_EOL);
-        //print_r(($randomIndex2). PHP_EOL);
+        }       
         $person1 = $fullnames[$randomIndex1];
-        $person2 = $fullnames[$randomIndex2];
-        
+        $person2 = $fullnames[$randomIndex2];       
         // Определяем пол выбранных персон
         $gender1 = getGenderFromName1($person1);
         $gender2 = getGenderFromName1($person2);
-        print_r(($gender1). PHP_EOL);
-        print_r(($gender2). PHP_EOL);
-
+       
     } while (($gender1 === $gender2) || ($gender1 === 'Неопределённый пол') || ($gender2 === 'Неопределённый пол'));
 
     // Проверяем, что персоны противоположного пола
