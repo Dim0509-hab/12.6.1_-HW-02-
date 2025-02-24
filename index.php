@@ -1,51 +1,4 @@
 <?php
-$example_persons_array = [
-    [
-        'fullname' => 'Иванов Иван Иванович',
-        'job' => 'tester',
-    ],
-    [
-        'fullname' => 'Степанова Наталья Степановна',
-        'job' => 'frontend-developer',
-    ],
-        [
-        'fullname' => 'Пащенко Владимир Александрович',
-        'job' => 'analyst',
-    ],
-    [
-        'fullname' => 'Громов Александр Иванович',
-        'job' => 'fullstack-developer',
-    ],
-    [
-        'fullname' => 'Славин Семён Сергеевич',
-        'job' => 'analyst',
-    ],
-    
-    [
-        'fullname' => 'Цой Владимир Антонович',
-        'job' => 'frontend-developer',
-    ],
-    [
-        'fullname' => 'Быстрая Юлия Сергеевна',
-        'job' => 'PR-manager',
-    ],
-    [
-        'fullname' => 'Шматко Антонина Сергеевна',
-        'job' => 'HR-manager',
-    ],
-    [
-        'fullname' => 'аль-Хорезми Мухаммад ибн-Муса',
-        'job' => 'analyst',
-    ],
-    [
-        'fullname' => 'Бардо Жаклин Фёдоровна',
-        'job' => 'android-developer',
-    ],
-    [
-        'fullname' => 'Шварцнегер Арнольд Густавович',
-        'job' => 'babysitter',
-    ],
-];
 
 
 
@@ -84,7 +37,7 @@ function getShortName($fullname) {
     $surname = $parts['surname'];
    
     // Возвращаем строку вида «Иван И.»
-    return $name. ' '. substr($surname, 0, 1). '.';
+    return $name. ' '. substr($surname, 0, 2). '.';
    }
 
 
@@ -165,7 +118,7 @@ function getGenderDescription($persons) {
     $femalePercent = ($totalCount > 0) ? ($femaleCount / $totalCount) * 100 : 0;
     $unknownPercent = ($totalCount > 0) ? ($unknownCount / $totalCount) * 100 : 0;
    
-    // Округляем проценты до одного знака после запятой
+    // Округляем проценты 
     $malePercent = round($malePercent, 1);
     $femalePercent = round($femalePercent, 1);
     $unknownPercent = round($unknownPercent, 1);
@@ -182,6 +135,8 @@ function getGenderDescription($persons) {
 
 
 ////////////////////////////////////////////////////
+
+
 
 function getPerfectPartner($surname, $name, $patronymic, $persons) {
     // Приводим ФИО к привычному регистру
@@ -208,8 +163,57 @@ function getPerfectPartner($surname, $name, $patronymic, $persons) {
    
     // Форматируем результат
     $compatibility = mt_rand(5000, 10000) / 100; // Случайное число от 50 до 100 с двумя знаками после запятой
-    $result = ucfirst($name). ' '. substr($surname, 0, 1). '. + '. $randomShortName. ' = \n';
+    $result = ucfirst($name). ' '. substr($surname, 0, 2). '. + '. $randomShortName. ' = '.PHP_EOL;
     $result.= '♡ Идеально на '. number_format($compatibility, 2). '% ♡';
    
     return $result;
    }
+
+
+/*
+  
+$fullname = getFullnameFromParts('Иванов', 'Иван', 'Иванович');
+echo $fullname.PHP_EOL; // Выведет: Иванов Иван Иванович
+
+
+$parts = getPartsFromFullname('Иванов Иван Иванович');
+print_r($parts); // Выведет: Array ( [surname] => Иванов [name] => Иван [patronymic] => Иванович )
+
+
+
+$shortName = getShortName('Иванов Иван Иванович');
+echo $shortName.PHP_EOL; // Выведет: Иван И.
+
+
+$gender = getGenderFromName('Иванов Иван Иванович');
+echo $gender.PHP_EOL; // Выведет: 1 (мужской пол)
+
+$gender = getGenderFromName('Иванова Анна Ивановна');
+echo $gender.PHP_EOL; // Выведет: -1 (женский пол)
+
+$gender = getGenderFromName('Петров Алексей Петрович');
+echo $gender.PHP_EOL; // Выведет: 1 (мужской пол)
+
+$gender = getGenderFromName('Сидорова Елена Александровна');
+echo $gender.PHP_EOL; // Выведет: -1 (женский пол)
+
+
+
+//  массив с ФИО
+$example_persons_array = [
+ 'Иванов Иван Иванович',
+ 'Иванова Анна Ивановна',
+ 'Петров Алексей Петрович',
+ 'Сидорова Елена Александровна',
+ 'Сидоров Алексей Петрович',
+ 'Неизвестнов Неизвестно Неизвестно']
+;
+
+
+echo getPerfectPartner('Иванов', 'Иван', 'Иванович', $example_persons_array);
+
+
+// Пример использования getGenderDescription
+echo getGenderDescription($example_persons_array);
+
+*/
